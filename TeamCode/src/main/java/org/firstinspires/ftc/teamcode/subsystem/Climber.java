@@ -9,6 +9,9 @@ public class Climber extends Mechanism {
 
     private DcMotorEx climb;
 
+    // constants
+    private static final int kP = 1;
+
     @Override
     public void init(HardwareMap hwMap) {
         for (LynxModule module : hwMap.getAll(LynxModule.class)) {
