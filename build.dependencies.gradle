@@ -25,5 +25,6 @@ dependencies {
     implementation 'org.firstinspires.ftc:Vision:8.2.0'
 
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.10'
+    implementation 'com.github.Thermal-Equilibrium:homeostasis-FTC:1.0.6'
 }
 
