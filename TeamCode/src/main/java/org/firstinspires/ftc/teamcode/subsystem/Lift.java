@@ -51,9 +51,11 @@ public class Lift extends Mechanism {
 
     public void loop() {
         controller.setSetpoint(target);
-//        power = controller.calculate(motors[0].getCurrentPosition());
+        power = controller.calculate(motors[0].getCurrentPosition());
         motors[0].setPower(power);
         motors[1].setPower(power);
+        System.out.println("encoder:" + motors[0].getCurrentPosition());
+        System.out.println("Power: " + power);
     }
 
     public double ticksToInches(double ticks) {
