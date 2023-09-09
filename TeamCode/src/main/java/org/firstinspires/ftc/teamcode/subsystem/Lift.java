@@ -20,6 +20,7 @@ public class Lift extends Mechanism {
     public static double kP = 0;
     public static double kI = 0;
     public static double kD = 0;
+    public static double kG = 0;
 
     public static double bottom = 0;
     public static double up = 300;
@@ -51,11 +52,9 @@ public class Lift extends Mechanism {
 
     public void loop() {
         controller.setSetpoint(target);
-        power = controller.calculate(motors[0].getCurrentPosition());
+        power = controller.calculate(motors[0].getCurrentPosition()) + kG;
         motors[0].setPower(power);
         motors[1].setPower(power);
-        System.out.println("encoder:" + motors[0].getCurrentPosition());
-        System.out.println("Power: " + power);
     }
 
     public double ticksToInches(double ticks) {

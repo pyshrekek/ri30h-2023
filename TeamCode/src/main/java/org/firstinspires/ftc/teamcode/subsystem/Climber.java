@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.hardware.lynx.LynxModule;
 
 public class Climber extends Mechanism {
-
     private DcMotorEx climb;
 
     // constants
