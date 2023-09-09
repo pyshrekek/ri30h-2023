@@ -6,11 +6,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.util.PIDController;
 
 public class Lift extends Mechanism {
     DcMotorEx[] motors = new DcMotorEx[2];
     ElapsedTime timer = new ElapsedTime();
+    PIDController controller = new PIDController(kP, kI, kD);
 
     public static double kP = 0;
     public static double kI = 0;
@@ -45,9 +49,8 @@ public class Lift extends Mechanism {
     }
 
     public void loop() {
-        PIDCoefficients coefficients = new PIDCoefficients(kP, kI, kD);
-        BasicPID controller = new BasicPID(coefficients);
-        power = controller.calculate(target, motors[0].getCurrentPosition());
+        controller.setSetpoint(target);
+        power = controller.calculate(motors[0].getCurrentPosition());
         motors[0].setPower(power);
         motors[1].setPower(power);
     }
