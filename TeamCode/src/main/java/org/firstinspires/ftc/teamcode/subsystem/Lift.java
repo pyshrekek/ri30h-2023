@@ -25,7 +25,7 @@ public class Lift extends Mechanism {
     public static double up = 300;
 
     public static double target = 0;
-    public double power;
+    public static double power;
 
     private static final double WHEEL_RADIUS = 1.37795;
     private static final double GEAR_RATIO = 1.0;
@@ -51,7 +51,7 @@ public class Lift extends Mechanism {
 
     public void loop() {
         controller.setSetpoint(target);
-        power = controller.calculate(motors[0].getCurrentPosition());
+//        power = controller.calculate(motors[0].getCurrentPosition());
         motors[0].setPower(power);
         motors[1].setPower(power);
     }
