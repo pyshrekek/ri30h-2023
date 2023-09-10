@@ -34,17 +34,9 @@ public final class Intake extends Mechanism {
         if(Point1.red() < 15 &&Point1.green() < 15 && Point1.blue() < 15) {
             System.out.println("NOTHING FOUND" + "NULL");
         } else {
-            storedPixels[currPassed-1] = processColor(Point1.red(),Point1.green(), Point1.blue());
+            incrementAmount();
         }
     }
-
-    Colors processColor(int r, int g, int b) {
-
-        return Colors.WHITE;
-    }
-
-
-
     // The following 2 methods either turn the intake on or off (Use it with conjunction to the amount of pixels in the bot
     public void Activate(double p) {
         powerVal = p;
