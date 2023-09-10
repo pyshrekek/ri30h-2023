@@ -19,6 +19,12 @@ public class Lift extends Mechanism {
     ElapsedTime timer = new ElapsedTime();
     PIDController controller = new PIDController(kP, kI, kD);
 
+    public enum LiftState {
+        BOTTOM,
+        IDLE,
+        SCORING
+    }
+
     public static double kP = 0.01;
     public static double kI = 0;
     public static double kD = 0;
@@ -38,6 +44,8 @@ public class Lift extends Mechanism {
     private static final double GEAR_RATIO = 1.0;
     private static final double TICKS_PER_REV = 145.1;
 
+    private LiftState currState = LiftState.BOTTOM;
+
     @Override
     public void init(HardwareMap hwMap) {
         motors[0] = hwMap.get(DcMotorEx.class, "lift");
@@ -48,17 +56,47 @@ public class Lift extends Mechanism {
 
         deposit = hwMap.get(Servo.class, "deposit");
         currentPosDeposit = intakePos;
+        timer.reset();
     }
 
     public void loop() {
+
+//        deposit.setPosition(currentPosDeposit);
+        switch(getState()) {
+            case BOTTOM:
+                goBottom();
+//                if(Math.abs(getPos() - getTarget()) < 0.1) deposit.setPosition(intakePos);
+                break;
+            case IDLE:
+                goUp();
+                setIdle();
+                break;
+            case SCORING:
+                timer.reset();
+                setDeposit();
+                // delay
+                if(timer.milliseconds() > 500) {
+                    setIntake();
+                    setState(LiftState.BOTTOM);
+                }
+                break;
+        }
+
         controller.setSetpoint(target);
         power = controller.calculate(motors[0].getCurrentPosition()) + kG;
         motors[0].setPower(power);
-        deposit.setPosition(currentPosDeposit);
 
         System.out.println("setpoint: " + target);
         System.out.println("power: " + power);
         System.out.println("pos: " + motors[0].getCurrentPosition() );
+    }
+
+    public void setState(LiftState state) {
+        this.currState = state;
+    }
+
+    public LiftState getState() {
+        return currState;
     }
 
     public void goBottom() {
