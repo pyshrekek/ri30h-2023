@@ -19,16 +19,17 @@ public class Lift extends Mechanism {
     ElapsedTime timer = new ElapsedTime();
     PIDController controller = new PIDController(kP, kI, kD);
 
-    public static double kP = 0;
+    public static double kP = 0.01;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
 
     public static double bottom = 0;
-    public static double up = 300;
-    public static double intakePos = 0;
-    public static double idlePos = .5;
-    public static double depositPos = 1;
+    public static double up = 1100;
+    public static double intakePos = .83;
+    public static double idlePos = .4;
+    public static double depositPos = 0;
+    public static double currentPosDeposit;
 
     public static double target = 0;
     public static double power;
@@ -46,12 +47,14 @@ public class Lift extends Mechanism {
         motors[0].setDirection(DcMotorSimple.Direction.FORWARD);
 
         deposit = hwMap.get(Servo.class, "deposit");
+        currentPosDeposit = intakePos;
     }
 
     public void loop() {
         controller.setSetpoint(target);
         power = controller.calculate(motors[0].getCurrentPosition()) + kG;
         motors[0].setPower(power);
+        deposit.setPosition(currentPosDeposit);
 
         System.out.println("setpoint: " + target);
         System.out.println("power: " + power);
@@ -66,16 +69,20 @@ public class Lift extends Mechanism {
         target = up;
     }
 
+    public double getTarget() {
+        return target;
+    }
+
     public void setIntake() {
-        deposit.setPosition(intakePos);
+        currentPosDeposit = intakePos;
     }
 
     public void setIdle() {
-        deposit.setPosition(idlePos);
+        currentPosDeposit = idlePos;
     }
 
     public void setDeposit() {
-        deposit.setPosition(depositPos);
+        currentPosDeposit = depositPos;
     }
 
     public double ticksToInches(double ticks) {

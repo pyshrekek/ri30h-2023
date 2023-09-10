@@ -26,12 +26,12 @@ public class Robot extends Mechanism {
         intake.setPower(gamepad.right_trigger);
         if (gamepad.a) {
             lift.goUp();
-//            lift.setIdle();
+            lift.setIdle();
         } else if (gamepad.b) {
             lift.goBottom();
-//            lift.setIntake();
+            lift.setIntake();
         } else if (gamepad.right_bumper) {
-//            lift.setDeposit();
+            lift.setDeposit();
         }
     }
 }
