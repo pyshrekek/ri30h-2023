@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package org.firstinspires.ftc.teamcode.subsystem.drive;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Drivetrain extends Mechanism {
+import org.firstinspires.ftc.teamcode.subsystem.Mechanism;
+
+public class BasicMecanum extends Mechanism {
     DcMotor frontLeft;
     DcMotor backLeft;
     DcMotor frontRight;

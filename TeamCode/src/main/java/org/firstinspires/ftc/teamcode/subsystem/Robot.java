@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.subsystem;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.subsystem.drive.BasicMecanum;
+
 public class Robot extends Mechanism {
-    Drivetrain drivetrain = new Drivetrain();
+    BasicMecanum drivetrain = new BasicMecanum();
 //    Climber climber = new Climber();
     Intake intake = new Intake();
     Lift lift = new Lift();
