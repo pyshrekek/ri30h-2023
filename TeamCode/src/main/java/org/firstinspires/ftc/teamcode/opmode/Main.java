@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.subsystem.Lift;
+import org.firstinspires.ftc.teamcode.subsystem.Robot;
 
 @Config
 @TeleOp(name = "TestIntakeColorSensor")
@@ -16,26 +17,16 @@ public class Main extends LinearOpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
     MultipleTelemetry tele = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-    ColorSensor testSensor;
-    Lift lift = new Lift();
     @Override
     public void runOpMode() throws InterruptedException {
-        // BLYAAAATTTTTZZZ NAHOYYY OK SUKA COLOR SENSOR BLYAT
-         testSensor = hardwareMap.get(ColorSensor.class, "GetCol");
-         ElapsedTime time = new ElapsedTime();
+        Robot robot = new Robot();
 
          waitForStart();
 
-         lift.init(hardwareMap);
+        robot.init(hardwareMap);
 
          while(!isStopRequested()) {
-             lift.loop();
-             tele.addData("Time", time.time());
-             tele.addData("R",testSensor.red());
-             tele.addData("G",testSensor.green());
-             tele.addData("B",testSensor.blue());
-             tele.addData("liftPos", lift.getPos());
-             tele.update();
+            robot.loop(gamepad1);
          }
     }
 }
