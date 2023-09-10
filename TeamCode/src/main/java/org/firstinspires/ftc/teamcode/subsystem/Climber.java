@@ -9,7 +9,7 @@ public class Climber extends Mechanism {
     private DcMotorEx climb;
 
     // constants
-    private static final int kP = 1;
+    private static final double kP = 1;
 
     @Override
     public void init(HardwareMap hwMap) {

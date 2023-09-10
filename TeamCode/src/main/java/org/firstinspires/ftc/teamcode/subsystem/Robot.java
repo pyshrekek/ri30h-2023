@@ -7,13 +7,13 @@ import org.firstinspires.ftc.teamcode.subsystem.drive.BasicMecanum;
 
 public class Robot extends Mechanism {
     BasicMecanum drivetrain = new BasicMecanum();
-//    Climber climber = new Climber();
+    Climber climber = new Climber();
     Intake intake = new Intake();
     Lift lift = new Lift();
 
     public void init(HardwareMap hwMap) {
         drivetrain.init(hwMap);
-//        climber.init(hwMap);
+        climber.init(hwMap);
         intake.init(hwMap);
         lift.init(hwMap);
     }

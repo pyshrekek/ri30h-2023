@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Lift;
 import org.firstinspires.ftc.teamcode.subsystem.Robot;
 
 @Config
-@TeleOp(name = "TestIntakeColorSensor")
+@TeleOp(name = "Main")
 public class Main extends LinearOpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
     MultipleTelemetry tele = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
