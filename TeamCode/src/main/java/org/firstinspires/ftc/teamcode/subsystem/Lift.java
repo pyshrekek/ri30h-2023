@@ -41,7 +41,7 @@ public class Lift extends Mechanism {
     public void init(HardwareMap hwMap) {
         motors[0] = hwMap.get(DcMotorEx.class, "lift");
         motors[0].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motors[0].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        motors[0].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motors[0].setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motors[0].setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -52,6 +52,10 @@ public class Lift extends Mechanism {
         controller.setSetpoint(target);
         power = controller.calculate(motors[0].getCurrentPosition()) + kG;
         motors[0].setPower(power);
+
+        System.out.println("setpoint: " + target);
+        System.out.println("power: " + power);
+        System.out.println("pos: " + motors[0].getCurrentPosition() );
     }
 
     public void goBottom() {

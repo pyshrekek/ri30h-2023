@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystem.drive;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -17,6 +18,13 @@ public class BasicMecanum extends Mechanism {
         backLeft = hwMap.dcMotor.get("backLeft");
         frontRight = hwMap.dcMotor.get("frontRight");
         backRight = hwMap.dcMotor.get("backRight");
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void loop(Gamepad gamepad1) {

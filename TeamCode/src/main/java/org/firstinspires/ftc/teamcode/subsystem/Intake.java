@@ -8,7 +8,7 @@ public class Intake extends Mechanism {
     public double power = 0;
 
     public void init(HardwareMap hwMap) {
-        motor = hwMap.get(DcMotorEx.class, "intakeMotor");
+        motor = hwMap.get(DcMotorEx.class, "intake");
     }
 
     public void loop() {
