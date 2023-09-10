@@ -32,8 +32,8 @@ public class Lift extends Mechanism {
 
     public static double bottom = 0;
     public static double up = 1100;
-    public static double intakePos = .83;
-    public static double idlePos = .4;
+    public static double intakePos = .9;
+    public static double idlePos = .5;
     public static double depositPos = 0;
     public static double currentPosDeposit;
 
@@ -43,8 +43,6 @@ public class Lift extends Mechanism {
     private static final double WHEEL_RADIUS = 1.37795;
     private static final double GEAR_RATIO = 1.0;
     private static final double TICKS_PER_REV = 145.1;
-
-    private LiftState currState = LiftState.BOTTOM;
 
     @Override
     public void init(HardwareMap hwMap) {
@@ -56,47 +54,17 @@ public class Lift extends Mechanism {
 
         deposit = hwMap.get(Servo.class, "deposit");
         currentPosDeposit = intakePos;
-        timer.reset();
     }
 
     public void loop() {
-
-//        deposit.setPosition(currentPosDeposit);
-        switch(getState()) {
-            case BOTTOM:
-                goBottom();
-//                if(Math.abs(getPos() - getTarget()) < 0.1) deposit.setPosition(intakePos);
-                break;
-            case IDLE:
-                goUp();
-                setIdle();
-                break;
-            case SCORING:
-                timer.reset();
-                setDeposit();
-                // delay
-                if(timer.milliseconds() > 500) {
-                    setIntake();
-                    setState(LiftState.BOTTOM);
-                }
-                break;
-        }
-
         controller.setSetpoint(target);
         power = controller.calculate(motors[0].getCurrentPosition()) + kG;
         motors[0].setPower(power);
+        deposit.setPosition(currentPosDeposit);
 
         System.out.println("setpoint: " + target);
         System.out.println("power: " + power);
         System.out.println("pos: " + motors[0].getCurrentPosition() );
-    }
-
-    public void setState(LiftState state) {
-        this.currState = state;
-    }
-
-    public LiftState getState() {
-        return currState;
     }
 
     public void goBottom() {
